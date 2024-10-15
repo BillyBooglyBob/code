@@ -24,6 +24,7 @@ docker ps
 docker exec <container_id> hdfs dfs -put /home/data/price.csv /price.csv 
 docker exec <container_id> hdfs dfs -put /home/data/specification.csv /specification.csv 
 
+e.g.
 docker exec 55b6e hdfs dfs -put /home/data/price.csv /price.csv 
 docker exec 55b6e hdfs dfs -put /home/data/specification.csv /specification.csv 
 
