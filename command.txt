@@ -1,32 +1,32 @@
 # VM initial configuration and install
-sudo apt-get update
+# Run each separately
+- sudo apt-get update
+- sudo apt-get install docker.io
+- sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+- sudo chmod +x /usr/local/bin/docker-compose
+- sudo usermod -aG docker $USER
+- docker-compose version
 
-sudo apt-get install docker.io
-
-sudo usermod -aG docker $USER
-
-sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-sudo chmod +x /usr/local/bin/docker-compose
-
-docker-compose version
-
-# Get data and files 
-git clone git clone https://github.com/BillyBooglyBob/code.git && cd code
+# Import data and files
+- mkdir code && cd code
+- upload docker-compose.yml, hadoop.env, and the files inside data
+(price.csv, specification.csv, project.ipnyb)
+- cp ../docker-compose.yml ../hadoop.env .
+- mkdir data && cp ../price.csv ../specification.csv ../project.ipynb ./data
 
 # Run the containers
 sudo chmod -R 777 data/ 
-docker-compose up -d
+sudo docker-compose up -d
 
 # Put data files into hdfs
 # container_id is the "namenode" container id
-docker ps
-docker exec <container_id> hdfs dfs -put /home/data/price.csv /price.csv 
-docker exec <container_id> hdfs dfs -put /home/data/specification.csv /specification.csv 
+sudo docker ps
+sudo docker exec <container_id> hdfs dfs -put /home/data/price.csv /price.csv 
+sudo docker exec <container_id> hdfs dfs -put /home/data/specification.csv /specification.csv 
 
 e.g.
-docker exec 55b6e hdfs dfs -put /home/data/price.csv /price.csv 
-docker exec 55b6e hdfs dfs -put /home/data/specification.csv /specification.csv 
+sudo docker exec 727d6 hdfs dfs -put /home/data/price.csv /price.csv 
+sudo docker exec 727d6 hdfs dfs -put /home/data/specification.csv /specification.csv 
 
 # Check files in hdfs
 http://external_IP/explorer.html 
