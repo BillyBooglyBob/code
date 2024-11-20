@@ -1,3 +1,21 @@
+# Create VM instance
+- Go to GCP (Google Cloud Platform)
+- Compute Engine
+- VM instances
+- CREATE INSTANCE
+- Machine configuration
+  - Choose N1 series
+  - For Machine type, choose CUSTOM and set Cores to 4 and Memory to 15GB
+- Boot disk
+  - Set Operating system to "Ubuntu"
+  - Set Version to "Ubuntu 22.04 LTS"
+  - Set size to 50GB
+- Firewall
+  - Allow HTTP traffic
+  - Allow HTTPS traffic
+- Create instance
+- Open ssh and follow the steps below
+
 # VM initial configuration and installations
 # Run each separately
 - sudo apt-get update
