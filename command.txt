@@ -1,4 +1,4 @@
-# VM initial configuration and install
+# VM initial configuration and installations
 # Run each separately
 - sudo apt-get update
 - sudo apt-get install docker.io
@@ -9,27 +9,41 @@
 
 # Import data and files
 - mkdir code && cd code
-- upload docker-compose.yml, hadoop.env, and the files inside data
-(price.csv, specification.csv, project.ipnyb)
+- upload "docker-compose.yml", "hadoop.env", and the following files inside the "data" folder
+(price.csv, specification.csv) exclude project.ipynb.
+It will be uploaded directly through Jupyter Notebook, inside /work/data folder
+alongside "price.csv" and "specification.csv". This is to ensure the notebook is not
+opened in read-only mode
 - cp ../docker-compose.yml ../hadoop.env .
-- mkdir data && cp ../price.csv ../specification.csv ../project.ipynb ./data
+- mkdir data && cp ../price.csv ../specification.csv ./data
 
 # Run the containers
 sudo chmod -R 777 data/ 
 sudo docker-compose up -d
 
 # Put data files into hdfs
-# container_id is the "namenode" container id
-sudo docker ps
-sudo docker exec <container_id> hdfs dfs -put /home/data/price.csv /price.csv 
-sudo docker exec <container_id> hdfs dfs -put /home/data/specification.csv /specification.csv 
+# container_id is the id of the container named "namenode"
+- sudo docker ps
+- sudo docker exec <container_id> hdfs dfs -put /home/data/price.csv /price.csv 
+- sudo docker exec <container_id> hdfs dfs -put /home/data/specification.csv /specification.csv 
 
 e.g.
-sudo docker exec 727d6 hdfs dfs -put /home/data/price.csv /price.csv 
-sudo docker exec 727d6 hdfs dfs -put /home/data/specification.csv /specification.csv 
+- sudo docker exec 9241bd95 hdfs dfs -put /home/data/price.csv /price.csv 
+- sudo docker exec 9241bd95 hdfs dfs -put /home/data/specification.csv /specification.csv 
 
-# Check files in hdfs
+# Check HDFS file system home page
 http://external_IP/explorer.html 
+
+# Check HDFS datanodes
+http://external_IP/dfshealth.html#tab-overview
+
+# Check the Spark worker nodes
+http://external_IP:8080/
 
 # Open the jupyter notebook
 http://external_IP:8888
+
+# Upload project.ipynb
+- Go to "work"
+- Go to "data"
+- upload "project.ipynb"
